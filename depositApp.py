@@ -1,26 +1,24 @@
 from tkinter import *
 from tkinter.ttk import Treeview
-from utils.credit_func import insert_data_differentiated_loan, insert_data_annuity_loan
+from utils.deposit import insert_data_deposit
 from utils.validation import validation_data
-
-
-type_of_loans = [
-    'Дифференциальный',
-    'Аннуитетный'
-]
 
 
 #insert data in table
 def click_btn():
     if validation_data(count_months_entry.get(), percent_entry.get(), summ_entry.get()):
-        if var_loans.get() == 'Аннуитетный':
-            for i in data_table.get_children():
-                data_table.delete(i)
-            insert_data_annuity_loan(data_table, int(count_months_entry.get()), float(percent_entry.get()), float(summ_entry.get()))
-        else:
-            for i in data_table.get_children():
-                data_table.delete(i)
-            insert_data_differentiated_loan(data_table, int(count_months_entry.get()), float(percent_entry.get()), float(summ_entry.get()))
+        for i in data_table.get_children():
+                    data_table.delete(i)
+        insert_data_deposit(data_table, int(count_months_entry.get()), float(summ_entry.get()), float(percent_entry.get()))
+    # if validation_credit_data(count_months_entry.get(), percent_entry.get(), summ_entry.get()):
+    #     if var_loans.get() == 'Аннуитетный':
+    #         for i in data_table.get_children():
+    #             data_table.delete(i)
+    #         insert_data_annuity_loan(data_table, int(count_months_entry.get()), float(percent_entry.get()), int(summ_entry.get()))
+    #     else:
+    #         for i in data_table.get_children():
+    #             data_table.delete(i)
+    #         insert_data_differentiated_loan(data_table, int(count_months_entry.get()), float(percent_entry.get()), int(summ_entry.get()))
 
 
 #main window
@@ -49,29 +47,21 @@ data_table.pack()
 table_scroll.config(command=data_table.yview)
 
 
-data_table['columns'] = ('month', 'summ', 'ostatok')
+data_table['columns'] = ('month', 'deposit', 'income')
 
 
 #create column
 data_table.column("#0", width=0,  stretch=NO)
 data_table.column("month",anchor=CENTER, width=300)
-data_table.column("summ",anchor=CENTER, width=300)
-data_table.column("ostatok",anchor=CENTER, width=300)
+data_table.column("deposit",anchor=CENTER, width=300)
+data_table.column("income",anchor=CENTER, width=300)
 
 
 #create heading
 data_table.heading("#0",text="",anchor=CENTER)
 data_table.heading("month",text="Месяц",anchor=CENTER)
-data_table.heading("summ",text="Платеж",anchor=CENTER)
-data_table.heading("ostatok",text="Остаток",anchor=CENTER)
-
-
-var_loans = StringVar(data_frame)
-var_loans.set(type_of_loans[0])
-
-
-option_menu_loans = OptionMenu(data_frame, var_loans, *type_of_loans)
-option_menu_loans.pack()
+data_table.heading("deposit",text="Депозит",anchor=CENTER)
+data_table.heading("income",text="Поступление",anchor=CENTER)
 
 
 label_percent = Label(data_frame, text='Введите процентную ставку')

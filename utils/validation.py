@@ -1,7 +1,7 @@
 from tkinter import messagebox
 
 
-def validation_credit_data(months: str, percent: str, summ: str):
+def validation_data(months: str, percent: str, summ: str):
     try:
         int(months)
     except:
@@ -20,7 +20,11 @@ def validation_credit_data(months: str, percent: str, summ: str):
 
 
     try:
-        int(summ)
+        float(summ)
+        split_summ = summ.split('.')
+        if'.' in summ and len(split_summ[1]) > 2:
+            messagebox.showwarning('Ошибка', 'Поле "Сумма кредита"')
+            return False
     except:
         messagebox.showwarning('Ошибка', 'Поле "Сумма кредита"')
         return False

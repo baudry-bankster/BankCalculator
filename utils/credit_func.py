@@ -1,7 +1,7 @@
 from tkinter.ttk import Treeview
 
 
-def differentiated_loan(months: int, percent: float, summ: int):
+def differentiated_loan(months: int, percent: float, summ: float):
     result = []
     pays = []
     body_credit = summ / months
@@ -19,13 +19,13 @@ def differentiated_loan(months: int, percent: float, summ: int):
     return result, sum(pays)
 
 
-def annuity_loan(months: int, percent: float, summ: int):
+def annuity_loan(months: int, percent: float, summ: float):
     percent = percent /1200
     ak = (percent * (1 + percent) ** months) / (((1 + percent) ** months) - 1)
     return round(summ * ak, 2), round(summ * ak * months, 2)
 
 
-def insert_data_differentiated_loan(table: Treeview, months: int, percent: float, summ: int):
+def insert_data_differentiated_loan(table: Treeview, months: int, percent: float, summ: float):
     data, pays = differentiated_loan(months, percent, summ)
     for i in range(months):
         table.insert(parent='', index='end', iid=i, text='', values=data[i])
@@ -33,7 +33,7 @@ def insert_data_differentiated_loan(table: Treeview, months: int, percent: float
     table.insert(parent='', index='end', iid=months, text='', values=('',f'Общая сумма: {round(pays, 2)}',f'Переплата:{round(pays - summ, 2)}',''))
 
 
-def insert_data_annuity_loan(table: Treeview, months: int, percent: float, summ: int):
+def insert_data_annuity_loan(table: Treeview, months: int, percent: float, summ: float):
     pay, common_summ = annuity_loan(months, percent, summ)
 
     table.insert(parent='', index='end', iid=months, text='', values=(f'Сумма платежа: {pay}',f'Общая сумма:{common_summ}',f'Переплата:{round(common_summ - summ, 2)}', ''))
