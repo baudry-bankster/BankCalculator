@@ -5,7 +5,7 @@ from utils.validation import validation_data
 
 
 type_of_loans = [
-    'Дифференциальный',
+    'Дифференцированный',
     'Аннуитетный'
 ]
 
