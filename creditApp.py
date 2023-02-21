@@ -54,9 +54,9 @@ data_table['columns'] = ('month', 'summ', 'ostatok')
 
 #create column
 data_table.column("#0", width=0,  stretch=NO)
-data_table.column("month",anchor=CENTER, width=300)
-data_table.column("summ",anchor=CENTER, width=300)
-data_table.column("ostatok",anchor=CENTER, width=300)
+data_table.column("month",anchor=E, width=300)
+data_table.column("summ",anchor=E, width=300)
+data_table.column("ostatok",anchor=E, width=300)
 
 
 #create heading

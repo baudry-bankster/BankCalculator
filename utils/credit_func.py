@@ -1,6 +1,16 @@
 from tkinter.ttk import Treeview
 
 
+def to_price(number: float):
+    if number != 0:
+        res = str(number).split('.')[1]
+        if len(res) < 2:
+            return str(number) + '0'
+        else:
+            return str(number)
+    return str(number)
+
+
 def differentiated_loan(months: int, percent: float, summ: float):
     result = []
     pays = []
@@ -28,17 +38,18 @@ def annuity_loan(months: int, percent: float, summ: float):
 def insert_data_differentiated_loan(table: Treeview, months: int, percent: float, summ: float):
     data, pays = differentiated_loan(months, percent, summ)
     for i in range(months):
-        table.insert(parent='', index='end', iid=i, text='', values=data[i])
+        table.insert(parent='', index='end', iid=i, text='', values=[data[i][0], to_price(data[i][1]), to_price(data[i][2])])
 
-    table.insert(parent='', index='end', iid=months, text='', values=('',f'Общая сумма: {round(pays, 2)}',f'Переплата:{round(pays - summ, 2)}',''))
+    table.insert(parent='', index='end', iid=months, text='', values=('',f'Общая сумма: {to_price(round(pays, 2))}',f'Переплата:{to_price(round(pays - summ, 2))}',''))
 
 
 def insert_data_annuity_loan(table: Treeview, months: int, percent: float, summ: float):
     pay, common_summ = annuity_loan(months, percent, summ)
 
-    table.insert(parent='', index='end', iid=months, text='', values=(f'Сумма платежа: {pay}',f'Общая сумма:{common_summ}',f'Переплата:{round(common_summ - summ, 2)}', ''))
+    table.insert(parent='', index='end', iid=months, text='', values=(f'Сумма платежа: {to_price(pay)}',f'Общая сумма:{to_price(common_summ)}',f'Переплата:{to_price(round(common_summ - summ, 2))}', ''))
 
 
 if __name__ == '__main__':
-    print(f"annuity loan --- {annuity_loan(12, 12, 1_000_000)}")
-    print(f"differentiated loan --- {differentiated_loan(12, 12, 1_000_000)}")
+    # print(f"annuity loan --- {annuity_loan(12, 12, 1_000_000)}")
+    # print(f"differentiated loan --- {differentiated_loan(12, 12, 1_000_000)}")
+    print(to_price(123.1))

@@ -2,7 +2,11 @@ from tkinter import messagebox
 
 
 def validation_data(months: str, percent: str, summ: str):
-    if months[0] == '.' or percent[0] == '.' or summ[0] == '.':
+    try:
+        if months[0] == '.' or percent[0] == '.' or summ[0] == '.':
+            messagebox.showwarning('Ошибка', 'Некорректные данные - поля принимают только числовые значения')
+            return False
+    except:
         messagebox.showwarning('Ошибка', 'Некорректные данные - поля принимают только числовые значения')
         return False
     try:
