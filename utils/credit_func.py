@@ -47,9 +47,3 @@ def insert_data_annuity_loan(table: Treeview, months: int, percent: float, summ:
     pay, common_summ = annuity_loan(months, percent, summ)
 
     table.insert(parent='', index='end', iid=months, text='', values=(f'Сумма платежа: {to_price(pay)}',f'Общая сумма:{to_price(common_summ)}',f'Переплата:{to_price(round(common_summ - summ, 2))}', ''))
-
-
-if __name__ == '__main__':
-    # print(f"annuity loan --- {annuity_loan(12, 12, 1_000_000)}")
-    # print(f"differentiated loan --- {differentiated_loan(12, 12, 1_000_000)}")
-    print(to_price(123.1))

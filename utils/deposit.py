@@ -1,4 +1,5 @@
 from tkinter.ttk import Treeview
+from utils.credit_func import to_price
 
 def deposit(months: int, summ:float, percent:float):
     per_percent = percent/1200
@@ -14,8 +15,8 @@ def deposit(months: int, summ:float, percent:float):
 def insert_data_deposit(table: Treeview, months: int, summ:float, percent:float):
     data = deposit(months, summ, percent)
     for i in range(months):
-        table.insert(parent='', index='end', iid=i, text='', values=data[i])
-    table.insert(parent='', index='end', iid=months, text='', values=('','',f'Выгода: {round(data[-1][1] - summ, 2)}',''))
+        table.insert(parent='', index='end', iid=i, text='', values=[to_price(data[i][0]), to_price(data[i][1]), to_price(data[i][2])])
+    table.insert(parent='', index='end', iid=months, text='', values=('','',f'Выгода: {to_price(round(data[-1][1] - summ, 2))}',''))
 
 
 # print(deposit(12, 1000000, 12))
